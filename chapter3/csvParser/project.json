@@ -1,10 +1,11 @@
 {
   "version": "1.0.0-*",
   "buildOptions": {
-    "debugType": "portable",
     "emitEntryPoint": true,
-    "copyToOutput": {
-      "includeFiles": "Marvel.csv"
+    "embed": {
+      "mappings": {
+        "Test1.csv": "Marvel.csv"
+      }
     }
   },
   "dependencies": {},
