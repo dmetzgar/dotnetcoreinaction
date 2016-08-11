@@ -4,8 +4,8 @@ using Xunit;
 
 namespace BusinessDaysTest
 {
+  [Collection("US region collection")]
   public class USRegionTest
-    : IClassFixture<USRegionFixture>
   {
     private USRegionFixture fixture;
 

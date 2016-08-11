@@ -1,4 +1,5 @@
 using BusinessDays;
+using Xunit;
 
 namespace BusinessDaysTest
 {
@@ -13,4 +14,7 @@ namespace BusinessDaysTest
       Calculator.AddRule(new HolidayRule());
     }
   }
+
+  [CollectionDefinition("US region collection")]
+  public class USRegionCollection : ICollectionFixture<USRegionFixture> {}
 }
