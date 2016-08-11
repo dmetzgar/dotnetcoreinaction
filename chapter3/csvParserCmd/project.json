@@ -1,7 +1,6 @@
 {
   "version": "1.0.0-*",
   "buildOptions": {
-    "debugType": "portable",
     "emitEntryPoint": true,
     "copyToOutput": {
       "include": "Marvel.csv"
@@ -13,12 +12,17 @@
   "frameworks": {
     "netcoreapp1.0": {
       "dependencies": {
-        "Microsoft.NETCore.App": {
-          "type": "platform",
-          "version": "1.0.0"
-        }
+        "Microsoft.NETCore.App": "1.0.0"
       },
       "imports": "dnxcore50"
     }
+  },
+  "runtimes": {
+    "win10-x64": {},
+    "osx.10.11-x64": {},
+    "ubuntu-x64": {}
+  },
+  "publishOptions": {
+    "include": "Marvel.csv"
   }
 }
