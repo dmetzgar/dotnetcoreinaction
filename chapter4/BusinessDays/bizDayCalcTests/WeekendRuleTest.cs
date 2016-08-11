@@ -6,12 +6,22 @@ namespace BusinessDaysTest
 {
   public class WeekendRuleTest
   {
-    [Fact]
-    public void TestCheckDate()
+    [Theory]
+    [InlineData("2016-06-27")]
+    [InlineData("2016-03-01")]
+    public void IsBusinessDay(string date)
     {
       var rule = new WeekendRule();
-      Assert.True(rule.CheckDate(new DateTime(2016, 6, 27)));
-      Assert.False(rule.CheckDate(new DateTime(2016, 6, 26)));
+      Assert.True(rule.CheckDate(DateTime.Parse(date)));
+    }
+
+    [Theory]
+    [InlineData("2016-06-26")]
+    [InlineData("2016-11-12")]
+    public void IsNotBusinessDay(string date)
+    {
+      var rule = new WeekendRule();
+      Assert.False(rule.CheckDate(DateTime.Parse(date)));
     }
   }
 }
