@@ -1,17 +1,20 @@
 using System;
 using BusinessDays;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace BusinessDaysTest
 {
   [Collection("US region collection")]
   public class USRegionTest
   {
-    private USRegionFixture fixture;
+    private readonly USRegionFixture fixture;
+    private readonly ITestOutputHelper output;
 
-    public USRegionTest(USRegionFixture fixture)
+    public USRegionTest(USRegionFixture fixture, ITestOutputHelper output)
     {
       this.fixture = fixture;
+      this.output = output;
     }
 
     [Theory]
@@ -19,6 +22,7 @@ namespace BusinessDaysTest
     [InlineData("2016-12-25")]
     public void TestHolidays(string date)
     {
+      output.WriteLine($"TestHolidays(\"{date}\")");
       Assert.False(fixture.Calculator.IsBusinessDay(
         DateTime.Parse(date)));
     }
@@ -28,6 +32,7 @@ namespace BusinessDaysTest
     [InlineData("2016-01-04")]
     public void TestNonHolidays(string date)
     {
+      output.WriteLine($"TestNonHolidays(\"{date}\")");
       Assert.True(fixture.Calculator.IsBusinessDay(
         DateTime.Parse(date)));
     }
