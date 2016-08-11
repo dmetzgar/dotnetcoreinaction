@@ -1,9 +1,15 @@
 {
   "version": "1.0.0-*",
   "buildOptions": {
-    "debugType": "portable"
+    "debugType": "portable",
+    "emitEntryPoint": true,
+    "copyToOutput": {
+      "include": "Marvel.csv"
+    }
   },
-  "dependencies": {},
+  "dependencies": {
+    "csvParser": "1.0.0-*"
+  },
   "frameworks": {
     "netcoreapp1.0": {
       "dependencies": {
