@@ -1,6 +1,11 @@
 {
   "version": "1.0.0-*",
   "testRunner": "xunit",
+  "buildOptions": {
+    "copyToOutput": {
+      "includeFiles": "xunit.runner.json"
+    }
+  },
   "dependencies": {
     "Microsoft.NETCore.App": {
       "type": "platform",
@@ -8,7 +13,7 @@
     },
     "bizDayCalc": { "target": "project" },
     "xunit": "2.1.0",
-    "dotnet-test-xunit": "1.0.0-rc2-build10025"
+    "dotnet-test-xunit": "2.2.0-preview2-build1029"
   },
   "frameworks": {
     "netcoreapp1.0": {
