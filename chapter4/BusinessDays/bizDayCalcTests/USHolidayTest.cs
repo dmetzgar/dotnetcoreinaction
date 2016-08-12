@@ -26,6 +26,7 @@ namespace BusinessDaysTest
 
     [Theory]
     [MemberData(nameof(Holidays))]
+    [Trait("Holiday", "true")]
     public void TestHolidays(DateTime date)
     {
       Assert.False(bizDayCalc.IsBusinessDay(date));
@@ -34,6 +35,7 @@ namespace BusinessDaysTest
     [Theory]
     [InlineData("2016-02-28")]
     [InlineData("2016-01-02")]
+    [Trait("Holiday", "false")]
     public void TestNonHolidays(string date)
     {
         Assert.True(bizDayCalc.IsBusinessDay(DateTime.Parse(date)));
