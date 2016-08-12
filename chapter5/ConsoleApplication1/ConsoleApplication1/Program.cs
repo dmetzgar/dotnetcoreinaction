@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 using System.Net;
+using System.Net.Http;
 
 namespace ConsoleApplication1
 {
@@ -28,21 +29,17 @@ namespace ConsoleApplication1
         static Tuple<HttpStatusCode, long> MeasureRequest(string uri)
         {
             var stopwatch = new Stopwatch();
-            var request = WebRequest.Create(uri);
-            request.Method = "GET";
-            stopwatch.Start();
-            using (var response = request.GetResponse()
-                   as HttpWebResponse)
+            using (var client = new HttpClient())
             {
-                using (var reader = new StreamReader(response.GetResponseStream()))
-                {
-                    reader.ReadToEnd();
-                    stopwatch.Stop();
-                }
+                client.BaseAddress = new Uri(uri);
+                stopwatch.Start();
+                var response = client.GetAsync("").Result;
+                response.Content.ReadAsStringAsync().Wait();
+                stopwatch.Stop();
 
                 return new Tuple<HttpStatusCode, long>(
-                    response.StatusCode,
-                    stopwatch.ElapsedMilliseconds);
+                  response.StatusCode,
+                  stopwatch.ElapsedMilliseconds);
             }
         }
     }
