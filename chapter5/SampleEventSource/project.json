@@ -15,6 +15,12 @@
       },
       "imports": "dnxcore50"
     },
-    "net46": {}
+    "net45": {
+      "buildOptions": {
+        "compile": {
+          "excludeFiles": "MyEventSource.cs"
+        }
+      }
+    }
   }
 }
