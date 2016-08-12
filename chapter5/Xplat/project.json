@@ -15,5 +15,9 @@
       },
       "imports": "dnxcore50"
     }
+  },
+  "runtimes": {
+    "win": {},
+    "linux": {}
   }
 }
