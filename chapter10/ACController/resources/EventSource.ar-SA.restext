@@ -1,0 +1,3 @@
+event_ExhaustAirTemp={0} :درجة الحرارة الهواء العادم
+event_CoolantTemp={0} :درجة الحرارة من سائل التبريد
+event_OutsideAirTemp={0} :درجة الحرارة الهواء الخارجي

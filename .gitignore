@@ -257,3 +257,6 @@ paket-files/
 # Entity Framework Migration files 
 *Migration.cs
 *Migration.Designer.cs
+
+# Generated resource files 
+*.resources
