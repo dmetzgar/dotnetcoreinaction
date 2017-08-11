@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard1.3</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Data.Common"
+                      Version="4.3.0" />
+    <PackageReference Include="Dapper"
+                      Version="1.50.2" />
+    
+  </ItemGroup>
+
+</Project>
