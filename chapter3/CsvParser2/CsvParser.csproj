@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <Foo>First Foo</Foo>
+    <Property1>$(Foo)</Property1>
+    <Foo>Second Foo</Foo>
+    <Property2>$(Foo)</Property2>
+  </PropertyGroup>
+
+  <Target Name="TestMessage" AfterTargets="Build">
+    <Message Text="$(Property1)" Importance="high" />
+    <Message Text="$(Property2)" Importance="high" />
+  </Target>
+
+</Project>
