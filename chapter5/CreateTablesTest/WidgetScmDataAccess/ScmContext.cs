@@ -261,6 +261,9 @@ namespace WidgetScmDataAccess
         p.DbType = DbType.String;
       else if (t == typeof(DateTime))
         p.DbType = DbType.DateTime;
+      else
+        throw new ArgumentException(
+          $"Unrecognized type: {t.ToString()}", "value");
       p.Direction = ParameterDirection.Input;
       p.ParameterName = name;
       p.Value = value;
