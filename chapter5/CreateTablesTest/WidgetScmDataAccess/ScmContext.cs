@@ -97,12 +97,13 @@ namespace WidgetScmDataAccess
       }  
     }
 
-    public PartCommand[] GetPartCommands()
+    public IEnumerable<PartCommand> GetPartCommands()
     {
       var command = connection.CreateCommand();
       command.CommandText = @"SELECT 
           Id, PartTypeId, PartCount, Command 
-        FROM PartCommand";
+        FROM PartCommand
+        ORDER BY Id";
       var reader = command.ExecuteReader();
       var partCommands = new List<PartCommand>();
       while (reader.Read())
