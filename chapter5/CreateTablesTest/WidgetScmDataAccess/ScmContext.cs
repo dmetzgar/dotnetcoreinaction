@@ -64,7 +64,7 @@ namespace WidgetScmDataAccess
     {
       var command = connection.CreateCommand();
       command.CommandText = @"INSERT INTO PartCommand
-        (PartTypeId, PartCount, Command)
+        (PartTypeId, Count, Command)
         VALUES (@partTypeId, 
         @partCount, @command);
         SELECT last_insert_rowid();";
@@ -101,7 +101,7 @@ namespace WidgetScmDataAccess
     {
       var command = connection.CreateCommand();
       command.CommandText = @"SELECT 
-          Id, PartTypeId, PartCount, Command 
+          Id, PartTypeId, Count, Command 
         FROM PartCommand
         ORDER BY Id";
       var reader = command.ExecuteReader();
@@ -128,7 +128,7 @@ namespace WidgetScmDataAccess
       var command = connection.CreateCommand();
       if (transaction != null)
         command.Transaction = transaction;
-      command.CommandText = @"DELETE FROM PartCommands
+      command.CommandText = @"DELETE FROM PartCommand
         WHERE Id=@id";
       AddParameter(command, "@id", id);
       command.ExecuteNonQuery();
@@ -228,7 +228,7 @@ namespace WidgetScmDataAccess
       var command = connection.CreateCommand();
       command.CommandText = @"SELECT 
           Id, SupplierId, PartTypeId, PartCount, PlacedDate, FulfilledDate 
-        FROM Order";
+        FROM [Order]";
       var reader = command.ExecuteReader();
       var orders = new List<Order>();
       while (reader.Read())

@@ -36,6 +36,26 @@ namespace SqliteScmTest
     }
 
     [Fact]
+    public void TestPartCommands()
+    {
+      var item = context.Inventory.First();
+      var startCount = item.Count;
+      context.CreatePartCommand(new PartCommand() {
+        PartTypeId = item.PartTypeId,
+        PartCount = 10,
+        Command = PartCountOperation.Add
+      });
+      context.CreatePartCommand(new PartCommand() {
+        PartTypeId = item.PartTypeId,
+        PartCount = 5,
+        Command = PartCountOperation.Remove
+      });
+      var inventory = new Inventory(context);
+      inventory.CheckInventory();
+      Assert.Equal(startCount + 5, item.Count);
+    }
+
+    [Fact]
     public void TestCreateOrder()
     {
       var placedDate = DateTime.Now;
