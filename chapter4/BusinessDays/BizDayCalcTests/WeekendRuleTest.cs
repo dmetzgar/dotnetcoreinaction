@@ -27,6 +27,7 @@ namespace BizDayCalcTests
         [Theory]
         [InlineData("2016-06-27")]                          
         [InlineData("2016-03-01")]
+        [InlineData("2017-09-17")]
         public void IsBusinessDay(string date)              
         {
             var rule = new WeekendRule();
