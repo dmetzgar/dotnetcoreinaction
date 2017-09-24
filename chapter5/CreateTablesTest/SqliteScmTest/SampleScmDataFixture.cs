@@ -18,6 +18,14 @@ namespace SqliteScmTest
             OrderThreshold INTEGER,
             FOREIGN KEY(PartTypeId) REFERENCES PartType(Id)
           );";
+    private const string PartCommandTable =
+        @"CREATE TABLE PartCommand(
+            Id INTEGER PRIMARY KEY,
+            Count INTEGER NOT NULL,
+            PartTypeId INTEGER NOT NULL,
+            Command VARCHAR(50) NOT NULL,
+            FOREIGN KEY(PartTypeId) REFERENCES PartType(Id)
+          );";
     private const string SupplierTable =
         @"CREATE TABLE Supplier(
             Id INTEGER PRIMARY KEY,
@@ -54,30 +62,28 @@ namespace SqliteScmTest
       
       (new SqliteCommand(PartTypeTable, conn)).ExecuteNonQuery();
       (new SqliteCommand(InventoryItemTable, conn)).ExecuteNonQuery();
+      (new SqliteCommand(PartCommandTable, conn)).ExecuteNonQuery();
       (new SqliteCommand(SupplierTable, conn)).ExecuteNonQuery();
       (new SqliteCommand(OrderTable, conn)).ExecuteNonQuery();
       (new SqliteCommand(SendEmailCommandTable, conn)).ExecuteNonQuery();
-      var command = new SqliteCommand(
+      (new SqliteCommand(
         @"INSERT INTO PartType
             (Id, Name)
             VALUES
             (0, '8289 L-shaped plate')",
-        conn);
-      command.ExecuteNonQuery();
-      command = new SqliteCommand(
+        conn)).ExecuteNonQuery();
+      (new SqliteCommand(
         @"INSERT INTO InventoryItem
             (PartTypeId, Count, OrderThreshold)
             VALUES
             (0, 100, 10)",
-        conn);
-      command.ExecuteNonQuery();
-      command = new SqliteCommand(
+        conn)).ExecuteNonQuery();
+      (new SqliteCommand(
         @"INSERT INTO Supplier
             (Name, Email, PartTypeId)
             VALUES
             ('Joe Supplier', 'joe@joesupplier.com', 0)",
-        conn);
-      command.ExecuteNonQuery();
+        conn)).ExecuteNonQuery();
     }
     
     public void Dispose()

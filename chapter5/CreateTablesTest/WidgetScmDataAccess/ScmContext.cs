@@ -60,6 +60,21 @@ namespace WidgetScmDataAccess
       }  
     }
 
+    public void CreatePartCommand(PartCommand partCommand)
+    {
+      var command = connection.CreateCommand();
+      command.CommandText = @"INSERT INTO PartCommand
+        (PartTypeId, PartCount, Command)
+        VALUES (@partTypeId, 
+        @partCount, @command);
+        SELECT last_insert_rowid();";
+      AddParameter(command, "@partTypeId", partCommand.PartTypeId);
+      AddParameter(command, "@partCount", partCommand.PartCount);
+      AddParameter(command, "@command", partCommand.Command.ToString());
+      long partCommandId = (long)command.ExecuteScalar();
+      partCommand.Id = (int)partCommandId;
+    }
+
     private void ReadSuppliers()
     {
       var command = connection.CreateCommand();
