@@ -56,6 +56,34 @@ namespace SqliteScmTest
     }
 
     [Fact]
+    public void TestCheckInventory()
+    {
+      var item = context.Inventory.First();
+      var totalCount = item.Count;
+      context.CreatePartCommand(new PartCommand() {
+        PartTypeId = item.PartTypeId,
+        PartCount = totalCount,
+        Command = PartCountOperation.Remove
+      });
+
+      var inventory = new Inventory(context);
+      inventory.CheckInventory();
+      var order = context.GetOrders().FirstOrDefault(
+        o => o.PartTypeId == item.PartTypeId &&
+        !o.FulfilledDate.HasValue);
+      Assert.NotNull(order);
+
+      context.CreatePartCommand(new PartCommand() {
+        PartTypeId = item.PartTypeId,
+        PartCount = totalCount,
+        Command = PartCountOperation.Add
+      });
+
+      inventory.CheckInventory();
+      Assert.Equal(totalCount, item.Count);
+    }
+
+    [Fact]
     public void TestCreateOrder()
     {
       var placedDate = DateTime.Now;
