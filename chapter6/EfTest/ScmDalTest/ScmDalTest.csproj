@@ -18,7 +18,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="efscm.db">
+    <None Include="efscm.db"
+          Condition="Exists('efscm.db')">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
