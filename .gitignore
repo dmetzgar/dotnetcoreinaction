@@ -260,3 +260,6 @@ paket-files/
 
 # Generated resource files 
 *.resources
+ 
+# Ignore Visual Studio Code config folders
+.vscode/
