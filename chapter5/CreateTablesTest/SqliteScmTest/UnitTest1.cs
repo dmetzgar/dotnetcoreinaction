@@ -51,12 +51,12 @@ namespace SqliteScmTest
         Command = PartCountOperation.Remove
       });
       var inventory = new Inventory(context);
-      inventory.CheckInventory();
+      inventory.UpdateInventory();
       Assert.Equal(startCount + 5, item.Count);
     }
 
     [Fact]
-    public void TestCheckInventory()
+    public void TestUpdateInventory()
     {
       var item = context.Inventory.First();
       var totalCount = item.Count;
@@ -67,7 +67,7 @@ namespace SqliteScmTest
       });
 
       var inventory = new Inventory(context);
-      inventory.CheckInventory();
+      inventory.UpdateInventory();
       var order = context.GetOrders().FirstOrDefault(
         o => o.PartTypeId == item.PartTypeId &&
         !o.FulfilledDate.HasValue);
@@ -79,7 +79,7 @@ namespace SqliteScmTest
         Command = PartCountOperation.Add
       });
 
-      inventory.CheckInventory();
+      inventory.UpdateInventory();
       Assert.Equal(totalCount, item.Count);
     }
 

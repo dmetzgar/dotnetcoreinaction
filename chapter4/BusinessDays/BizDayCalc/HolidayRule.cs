@@ -11,7 +11,7 @@ namespace BizDayCalc
             { 12, 25 }  // Christmas day
         };
 
-        public bool CheckDate(DateTime date)
+        public bool CheckIsBusinessDay(DateTime date)
         {
             for (int day = 0; day <= USHolidays.GetUpperBound(0); day++)          
             {

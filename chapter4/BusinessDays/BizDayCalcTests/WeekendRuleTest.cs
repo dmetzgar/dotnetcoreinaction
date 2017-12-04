@@ -17,21 +17,21 @@ namespace BizDayCalcTests
             }
 
         [Fact]
-        public void TestCheckDate()
+        public void TestCheckIsBusinessDay()
         {
             var rule = new WeekendRule();
-            Assert.True(rule.CheckDate(new DateTime(2016, 6, 27)));
-            Assert.False(rule.CheckDate(new DateTime(2016, 6, 26)));
+            Assert.True(rule.CheckIsBusinessDay(new DateTime(2016, 6, 27)));
+            Assert.False(rule.CheckIsBusinessDay(new DateTime(2016, 6, 26)));
         }
 
         [Theory]
-        [InlineData("2016-06-27")]                          
-        [InlineData("2016-03-01")]
-        [InlineData("2017-09-17")]
+        [InlineData("2016-06-27")] // Monday                     
+        [InlineData("2016-03-01")] // Tuesday
+        [InlineData("2017-09-20")] // Wednesday
         public void IsBusinessDay(string date)              
         {
             var rule = new WeekendRule();
-            Assert.True(rule.CheckDate(DateTime.Parse(date)));
+            Assert.True(rule.CheckIsBusinessDay(DateTime.Parse(date)));
         }
 
         [Theory]
@@ -40,7 +40,7 @@ namespace BizDayCalcTests
         public void IsNotBusinessDay(string date)
         {
             var rule = new WeekendRule();
-            Assert.False(rule.CheckDate(DateTime.Parse(date)));
+            Assert.False(rule.CheckIsBusinessDay(DateTime.Parse(date)));
         }
 
         [Theory]
@@ -51,15 +51,15 @@ namespace BizDayCalcTests
         public void IsBusinessDayExpected(bool expected, string date)
         {
             var rule = new WeekendRule();
-            Assert.Equal(expected, rule.CheckDate(DateTime.Parse(date)));
+            Assert.Equal(expected, rule.CheckIsBusinessDay(DateTime.Parse(date)));
         }
 
         [Theory]
         [MemberData(nameof(Days))]
-        public void TestCheckDateMemberData(bool expected, DateTime date)
+        public void TestCheckIsBusinessDayMemberData(bool expected, DateTime date)
         {
             var rule = new WeekendRule();
-            Assert.Equal(expected, rule.CheckDate(date));
+            Assert.Equal(expected, rule.CheckIsBusinessDay(date));
         }
     }
 }

@@ -15,7 +15,7 @@ namespace BizDayCalc
         public bool IsBusinessDay(DateTime date)
         {
             foreach (var rule in rules)
-                if (!rule.CheckDate(date))
+                if (!rule.CheckIsBusinessDay(date))
                     return false;
 
             return true;

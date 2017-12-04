@@ -4,7 +4,7 @@ namespace BizDayCalc
 {
     public class WeekendRule : IRule
     {
-        public bool CheckDate(DateTime date)
+        public bool CheckIsBusinessDay(DateTime date)
         {
             return 
                 date.DayOfWeek != DayOfWeek.Saturday &&

@@ -11,7 +11,7 @@ namespace WidgetScmDataAccess
       _context = context;
     }
 
-    public void CheckInventory() 
+    public void UpdateInventory() 
     {
       foreach (var cmd in _context.GetPartCommands())
       {
