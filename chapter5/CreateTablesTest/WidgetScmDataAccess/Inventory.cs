@@ -5,26 +5,26 @@ namespace WidgetScmDataAccess
 {
   public class Inventory
   {
-    private ScmContext _context;
+    private ScmContext context;
     public Inventory(ScmContext context)
     {
-      _context = context;
+      this.context = context;
     }
 
     public void UpdateInventory() 
     {
-      foreach (var cmd in _context.GetPartCommands())
+      foreach (var cmd in context.GetPartCommands())
       {
-        var item = _context.Inventory.Single(i => i.PartTypeId == cmd.PartTypeId);
+        var item = context.Inventory.Single(i => i.PartTypeId == cmd.PartTypeId);
         if (cmd.Command == PartCountOperation.Add)
           item.Count += cmd.PartCount;
         else
           item.Count -= cmd.PartCount;
         
-        var transaction = _context.BeginTransaction();
+        var transaction = context.BeginTransaction();
         try {
-          _context.UpdateInventoryItem(item.PartTypeId, item.Count, transaction);
-          _context.DeletePartCommand(cmd.Id, transaction);
+          context.UpdateInventoryItem(item.PartTypeId, item.Count, transaction);
+          context.DeletePartCommand(cmd.Id, transaction);
           transaction.Commit();
         }
         catch {
@@ -33,9 +33,9 @@ namespace WidgetScmDataAccess
         }
       }
 
-      var orders = _context.GetOrders();
+      var orders = context.GetOrders();
 
-      foreach (var item in _context.Inventory)
+      foreach (var item in context.Inventory)
       {
         if (item.Count < item.OrderThreshold &&
           orders.FirstOrDefault(o => 
@@ -54,10 +54,10 @@ namespace WidgetScmDataAccess
         PartCount = count,
         PlacedDate = DateTime.Now
       };
-      order.Part = _context.Parts.Single(p => p.Id == order.PartTypeId);
-      order.Supplier = _context.Suppliers.First(s => s.PartTypeId == part.Id);
+      order.Part = context.Parts.Single(p => p.Id == order.PartTypeId);
+      order.Supplier = context.Suppliers.First(s => s.PartTypeId == part.Id);
       order.SupplierId = order.Supplier.Id;
-      _context.CreateOrder(order);
+      context.CreateOrder(order);
     }
   }
 }
