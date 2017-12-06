@@ -16,17 +16,14 @@ namespace MarkdownService
   public class MdlController : Controller
   {
     private readonly IMarkdownEngine engine;
-    private readonly string AccountName;
-    private readonly string AccountKey;
-    private readonly string BlobEndpoint;
-    private readonly string ServiceVersion;
-    
-    public MdlController(IMarkdownEngine engine)
+    private string AccountName;
+    private string AccountKey;
+    private string BlobEndpoint;
+    private string ServiceVersion;
+ 
+    public MdlController(IMarkdownEngine engine, IConfigurationRoot configRoot)
     {
       this.engine = engine;
-      var configBuilder = new ConfigurationBuilder();
-      configBuilder.AddJsonFile("config.json", true);
-      var configRoot = configBuilder.Build();
       AccountName = configRoot["AccountName"];
       AccountKey = configRoot["AccountKey"];
       BlobEndpoint = configRoot["BlobEndpoint"];
