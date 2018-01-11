@@ -15,6 +15,7 @@ namespace MarkdownService
   [Route("/")]
   public class MdlController : Controller
   {
+    private static readonly HttpClient client = new HttpClient();
     private readonly IMarkdownEngine engine;
     private string AccountName;
     private string AccountKey;
@@ -48,14 +49,11 @@ namespace MarkdownService
       var request = CreateRequest(HttpMethod.Get, container, blob);
       var contentType = blob == null ? "text/xml" : "text/html";
       
-      using (var client = new HttpClient())
-      {
-        var response = await client.SendAsync(request);
-        var responseContent = await response.Content.ReadAsStringAsync();
-        if (blob != null)
-          responseContent = engine.Markup(responseContent);
-        return Content(responseContent, contentType);
-      }
+      var response = await client.SendAsync(request);
+      var responseContent = await response.Content.ReadAsStringAsync();
+      if (blob != null)
+        responseContent = engine.Markup(responseContent);
+      return Content(responseContent, contentType);
     }
     
     [HttpPut("{container}/{blob}")]
@@ -66,14 +64,11 @@ namespace MarkdownService
       request.Content = new StreamContent(this.Request.Body);
       request.Content.Headers.Add("Content-Length", contentLen.ToString());
       
-      using (var client = new HttpClient())
-      {
-        var response = await client.SendAsync(request);
-        if (response.StatusCode == HttpStatusCode.Created)
-          return Created($"{AccountName}/{container}/{blob}", null);
-        else
-          return Content(await response.Content.ReadAsStringAsync());
-      }
+      var response = await client.SendAsync(request);
+      if (response.StatusCode == HttpStatusCode.Created)
+        return Created($"{AccountName}/{container}/{blob}", null);
+      else
+        return Content(await response.Content.ReadAsStringAsync());
     }
 
     [HttpDelete]
@@ -81,14 +76,11 @@ namespace MarkdownService
     {
       var request = CreateRequest(HttpMethod.Delete, container, blob);
       
-      using (var client = new HttpClient())
-      {
-        var response = await client.SendAsync(request);
-        if (response.StatusCode == HttpStatusCode.Accepted)
-          return NoContent();
-        else
-          return Content(await response.Content.ReadAsStringAsync());
-      }
+      var response = await client.SendAsync(request);
+      if (response.StatusCode == HttpStatusCode.Accepted)
+        return NoContent();
+      else
+        return Content(await response.Content.ReadAsStringAsync());
     }
     
     private HttpRequestMessage CreateRequest(HttpMethod verb, string container, string blob = null, long? contentLen = default(long?))
