@@ -9,7 +9,7 @@
                       Version="2.0.0" />
     <PackageReference Include="Dapper"
                       Version="1.50.2" />
-    <PackageReference Include="System.Data.SqlClient" Version="4.3.1" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
     <PackageReference Include="System.Net.NameResolution" Version="4.3.0" />
     <PackageReference Include="runtime.win.System.Net.Sockets" Version="4.3.0" />
     <ProjectReference Include="../ScmDataAccess/ScmDataAccess.csproj" />
